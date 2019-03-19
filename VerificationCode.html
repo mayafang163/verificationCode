@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+  <head>
+    <title>insert a title</title>
+    <meta charset="utf-8">
+  </head>
+  <script>
+//  随机生成验证码
+//  如何将所有字符保存为连续的结构
+//  如何将每个字符放入数组
+    var chars=[];
+
+//  将“0”~“9”存入数组
+//    48  57
+    for(var c=48;c<=57;chars.push(String.fromCharCode(c++)));
+//  将“A”~“Z”存入数组
+//    65  90
+    for(var c=65;c<=90;chars.push(String.fromCharCode(c++)));
+//  将“a”~“z”存入数组
+//    97  122
+    for(var c=97;c<=122;chars.push(String.fromCharCode(c++)));
+    console.log(chars.length);  //62
+
+//  专门生成一个4位随机验证码
+    function getCode(){
+      for(var i=0,arr=[];i<4;i++){
+//      从0~61随机生成一个整数n
+        var n=parseInt(Math.random()*(61-0+1)+0);
+//      将chars中n位置的字符放入arr中  
+        arr.push(chars[n]);
+      }
+      return arr.join("");
+    }
+
+    function valiCode(){
+//    先调用getCode()生成验证码，存入code
+      var code=getCode();
+//    再反复输入字符串input，同时判断是否等于code
+      while(prompt("请输入验证码"+code).toLowerCase()!=code.toLowerCase()){
+//      如果不等于，才提示“验证码错误”  
+        alert("验证码错误");
+//      重新调用code=getCode()生成新验证码存入code中
+        code=getCode();
+      }
+      document.write('<h1 style="color:purple">验证通过</h1>');
+    }
+  </script>
+  <body>
+    <button onclick="valiCode()">验证码</button>
+  </body>
+</html>
